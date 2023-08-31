@@ -4,6 +4,8 @@ import { useRoute, useRouter } from "vue-router";
 import { useAppStore } from "@/modules/app/storeApp";
 import type { ListItem } from "@/modules/app/interfaceApp";
 
+import Btn from "@/ui/btn/Btn.vue";
+
 const props = defineProps<{
 	isAdd?: boolean;
 }>();
@@ -46,9 +48,9 @@ const addItem = () => {
 	<div v-if="checkId || isAdd">
 		<input v-model="temp" type="number" placeholder="Укажите температуру " />
 
-		<button @click="addItem">
+		<Btn @click="addItem">
 			{{ props.isAdd ? "Добавить" : "Изменить" }}
-		</button>
+		</Btn>
 	</div>
 	<span v-else>нет</span>
 </template>

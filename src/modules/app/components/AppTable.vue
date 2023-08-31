@@ -3,6 +3,8 @@ import { computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useAppStore } from "@/modules/app/storeApp";
 
+import Btn from "@/ui/btn/Btn.vue";
+
 // router
 const router = useRouter(),
 	route = useRoute();
@@ -31,8 +33,8 @@ const remove = (id: number): void => {
 			<td>{{ item.id }}</td>
 			<td>{{ item.temp }}</td>
 			<td>
-				<button @click="edit(item.id)">edit</button>
-				<button @click="remove(item.id)">remove</button>
+				<Btn @click="edit(item.id)">edit</Btn>
+				<Btn @click="remove(item.id)" :is-accent="true">remove</Btn>
 			</td>
 		</tr>
 	</table>
