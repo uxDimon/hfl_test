@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router";
+import { RouterView } from "vue-router";
 </script>
 
 <template>
-	<h1>test</h1>
-	<p>test</p>
-
-	<RouterLink to="/add" class="btn">new</RouterLink>
-	<RouterLink to="/" class="btn">Home</RouterLink>
+	<h1>SPA приложение для записи состояния датчика температуры.</h1>
+	<hr />
 
 	<RouterView />
 </template>

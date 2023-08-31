@@ -15,6 +15,10 @@ const props = defineProps<{
 const router = useRouter(),
 	route = useRoute();
 
+const toHome = (): void => {
+	router.push({ path: "/" });
+};
+
 // store
 const store = useAppStore();
 
@@ -38,41 +42,88 @@ const editAddItem = () => {
 			checkId.temp = temp.value;
 		}
 
-		router.push({ path: "/" });
+		toHome();
 	}
 };
 
 // modal
 const modalIsOpen = ref<boolean>(false);
+
 const closeModal = (): void => {
 	modalIsOpen.value = false;
+};
+
+// back
+const oldTemp = temp.value;
+
+const goBack = (): void => {
+	if (oldTemp === temp.value) {
+		toHome();
+	} else {
+		modalIsOpen.value = true;
+	}
 };
 </script>
 
 <template>
-	<h2>add</h2>
+	<div class="add-edit-wrap">
+		<h2>{{ props.isAdd ? "Добавить новую" : "Изменить" }} температуру</h2>
 
-	<div v-if="checkId || isAdd">
-		<input v-model="temp" type="number" placeholder="Укажите температуру " />
+		<Btn @btn-click="goBack" class="add-edit-btn">Назад</Btn>
 
-		<Btn
-			@click="
-				() => {
-					modalIsOpen = true;
-				}
-			"
-			:disabled="!temp"
-		>
-			{{ props.isAdd ? "Добавить" : "Изменить" }}
-		</Btn>
+		<div v-if="checkId || isAdd" class="input-wrap">
+			<label for="temp-input">Укажите температуру</label>
+			<input v-model="temp" id="temp-input" type="number" />
+
+			<Btn @btn-click="editAddItem" :disabled="!temp">
+				{{ props.isAdd ? "Добавить" : "Изменить" }}
+			</Btn>
+		</div>
+
+		<p v-else>
+			Температуры с таким id не существует<br />
+			¯\_(ツ)_/¯
+		</p>
 	</div>
-	<span v-else>нет</span>
 
 	<Modal v-if="modalIsOpen" @close="closeModal">
-		<template v-slot:text>Точно хотите {{ props.isAdd ? "добавить новую" : "изменить" }} температуру?))</template>
+		<template v-slot:text>Точно хотите назад?)</template>
 		<template v-slot:btn>
 			<Btn @btn-click="closeModal">Не!</Btn>
-			<Btn @btn-click="editAddItem" :is-accent="true">Ага!</Btn>
+			<Btn @btn-click="toHome" :is-accent="true">Ага!</Btn>
 		</template>
 	</Modal>
 </template>
+
+<style scoped lang="postcss">
+.add-edit-wrap {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.add-edit-btn {
+	margin-bottom: 20px;
+}
+
+.input-wrap {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	> label {
+		margin-bottom: 6px;
+		text-align: center;
+	}
+
+	> input {
+		text-align: center;
+		border: none;
+		font-size: 18px;
+		border-radius: 4px;
+		height: 40px;
+
+		margin-bottom: 20px;
+	}
+}
+</style>
