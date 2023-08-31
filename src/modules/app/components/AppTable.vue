@@ -29,6 +29,7 @@ const closeModal = (): void => {
 let removeId: number;
 const removeListItem = (id: number): void => {
 	store.list = store.list.filter((i) => i.id !== id);
+	store.addToLocalStorage();
 	closeModal();
 };
 </script>
@@ -50,7 +51,7 @@ const removeListItem = (id: number): void => {
 				<td>{{ item.temp }} °C</td>
 				<td>
 					<div class="btn-wrap">
-						<Btn @btn-click="edit(item.id)">edit</Btn>
+						<Btn @btn-click="edit(item.id)">Изменить</Btn>
 						<Btn
 							@btn-click="
 								() => {
@@ -59,7 +60,7 @@ const removeListItem = (id: number): void => {
 								}
 							"
 							:is-accent="true"
-							>remove</Btn
+							>Удалить</Btn
 						>
 					</div>
 				</td>

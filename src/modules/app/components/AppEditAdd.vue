@@ -34,10 +34,25 @@ const editAddItem = () => {
 	if (temp.value) {
 		if (props.isAdd) {
 			++store.countId;
+
+			// Так watch не работает
 			store.list.push({
 				id: store.countId,
 				temp: temp.value,
 			});
+			store.addToLocalStorage();
+
+			// Так watch отработает при изменение
+			// Но мне watch не очень нравится слишком не предсказуемая штука
+			// store.list = [
+			// 	...store.list,
+			// 	...[
+			// 		{
+			// 			id: store.countId,
+			// 			temp: temp.value,
+			// 		},
+			// 	],
+			// ];
 		} else if (checkId) {
 			checkId.temp = temp.value;
 		}
