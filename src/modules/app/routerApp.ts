@@ -10,9 +10,17 @@ const routerApp = createRouter({
 			component: AppTable,
 		},
 		{
-			path: "/edit",
+			path: "/add",
+			name: "add",
+			props: {
+				isAdd: true,
+			},
+			component: () => import("@/modules/app/components/AppEditAdd.vue"),
+		},
+		{
+			path: "/edit/:id",
 			name: "edit",
-			component: () => import("@/modules/app/components/AppChangesAdd.vue"),
+			component: () => import("@/modules/app/components/AppEditAdd.vue"),
 		},
 	],
 });

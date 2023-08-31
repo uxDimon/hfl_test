@@ -1,11 +1,39 @@
 <script setup lang="ts">
+import { computed } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { useAppStore } from "@/modules/app/storeApp";
+
+// router
+const router = useRouter(),
+	route = useRoute();
 
 // store
 const store = useAppStore();
+
+const listRevers = computed(() => [...store.list].reverse());
+
+// edit
+const edit = (id: number): void => {
+	router.push({ name: "edit", params: { id: id } });
+};
+
+// remove
+const remove = (id: number): void => {
+	store.list = store.list.filter((i) => i.id !== id);
+};
 </script>
 
 <template>
 	<h2>table</h2>
-	<span>{{ store.count }}</span>
+
+	<table>
+		<tr v-for="item in listRevers" :key="item.id">
+			<td>{{ item.id }}</td>
+			<td>{{ item.temp }}</td>
+			<td>
+				<button @click="edit(item.id)">edit</button>
+				<button @click="remove(item.id)">remove</button>
+			</td>
+		</tr>
+	</table>
 </template>
