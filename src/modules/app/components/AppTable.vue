@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { useRouter, RouterLink } from "vue-router";
-import { useAppStore } from "@/modules/app/storeApp";
+import useAppStore from "@/modules/app/storeApp";
 
 import Btn from "@/ui/btn/Btn.vue";
 import Modal from "@/components/modal/Modal.vue";

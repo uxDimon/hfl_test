@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { useAppStore } from "@/modules/app/storeApp";
+import useAppStore from "@/modules/app/storeApp";
 import type { ListItem } from "@/modules/app/interfaceApp";
 
 import Btn from "@/ui/btn/Btn.vue";

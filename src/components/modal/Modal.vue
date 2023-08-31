@@ -6,7 +6,7 @@ const emit = defineEmits<{
 	(e: "close"): void;
 }>();
 
-const modal = ref(null);
+const modal = ref<HTMLElement | null>(null);
 
 onClickOutside(modal, () => {
 	emit("close");

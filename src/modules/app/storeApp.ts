@@ -4,7 +4,7 @@ import type { ListItem } from "@/modules/app/interfaceApp";
 
 const LOCAL_STORAGE_NAME = "appData";
 
-export const useAppStore = defineStore("app", () => {
+const useAppStore = defineStore("app", () => {
 	const countId = ref<number>(3),
 		list = ref<ListItem[]>([
 			{
@@ -58,3 +58,5 @@ export const useAppStore = defineStore("app", () => {
 
 	return { countId, list, addToLocalStorage };
 });
+
+export default useAppStore;
