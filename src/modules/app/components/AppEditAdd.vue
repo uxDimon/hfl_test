@@ -5,6 +5,7 @@ import { useAppStore } from "@/modules/app/storeApp";
 import type { ListItem } from "@/modules/app/interfaceApp";
 
 import Btn from "@/ui/btn/Btn.vue";
+import Modal from "@/components/modal/Modal.vue";
 
 const props = defineProps<{
 	isAdd?: boolean;
@@ -25,7 +26,7 @@ const checkId: ListItem | undefined = store.list.find((i) => {
 // addItem
 const temp = ref<number | null>(checkId?.temp ?? null);
 
-const addItem = () => {
+const editAddItem = () => {
 	if (temp.value) {
 		if (props.isAdd) {
 			++store.countId;
@@ -40,6 +41,12 @@ const addItem = () => {
 		router.push({ path: "/" });
 	}
 };
+
+// modal
+const modalIsOpen = ref<boolean>(false);
+const closeModal = (): void => {
+	modalIsOpen.value = false;
+};
 </script>
 
 <template>
@@ -48,9 +55,24 @@ const addItem = () => {
 	<div v-if="checkId || isAdd">
 		<input v-model="temp" type="number" placeholder="Укажите температуру " />
 
-		<Btn @click="addItem">
+		<Btn
+			@click="
+				() => {
+					modalIsOpen = true;
+				}
+			"
+			:disabled="!temp"
+		>
 			{{ props.isAdd ? "Добавить" : "Изменить" }}
 		</Btn>
 	</div>
 	<span v-else>нет</span>
+
+	<Modal v-if="modalIsOpen" @close="closeModal">
+		<template v-slot:text>Точно хотите {{ props.isAdd ? "добавить новую" : "изменить" }} температуру?))</template>
+		<template v-slot:btn>
+			<Btn @btn-click="closeModal">Не!</Btn>
+			<Btn @btn-click="editAddItem" :is-accent="true">Ага!</Btn>
+		</template>
+	</Modal>
 </template>

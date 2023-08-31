@@ -6,7 +6,7 @@ defineProps<{
 </script>
 
 <template>
-	<button @click="$emit('click')" :disabled="disabled" :class="{ _accent: isAccent }" class="btn">
+	<button @click="$emit('btn-click')" :disabled="disabled" :class="{ _accent: isAccent }" class="btn">
 		<slot></slot>
 	</button>
 </template>
@@ -25,7 +25,7 @@ button {
 		border-radius: 6px;
 		background: var(--color-main);
 		font-family: var(--main-font);
-		font-weight: 600;
+		font-weight: 400;
 		font-size: 16px;
 		line-height: 120%;
 		color: var(--color-text);
