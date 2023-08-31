@@ -22,12 +22,14 @@ export const useAppStore = defineStore("app", () => {
 		]);
 
 	// localStorage
-	let localApp = window.localStorage.getItem(LOCAL_STORAGE_NAME);
-	if (localApp) {
-		const appData: { countId: number; list: ListItem[] } = JSON.parse(localApp);
+	type LocalApp = { countId: number; list: ListItem[] };
+	let localApp: string | null | LocalApp = window.localStorage.getItem(LOCAL_STORAGE_NAME);
 
-		countId.value = appData.countId;
-		list.value = appData.list;
+	if (localApp) {
+		localApp = <LocalApp>JSON.parse(localApp);
+
+		countId.value = localApp.countId;
+		list.value = localApp.list;
 	}
 
 	// Придётся вызывать при каждом изменении эту функцию, зато больше контроля)
