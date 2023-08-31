@@ -8,9 +8,8 @@ const emit = defineEmits<{
 
 const modal = ref(null);
 
-onClickOutside(modal, (event) => {
+onClickOutside(modal, () => {
 	emit("close");
-	console.log(event);
 });
 </script>
 
