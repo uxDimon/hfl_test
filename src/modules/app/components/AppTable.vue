@@ -12,7 +12,7 @@ const router = useRouter();
 // store
 const store = useAppStore();
 
-const listRevers = computed(() => [...store.list].reverse());
+const listRevers = computed(() => [...store.appData.list].reverse());
 
 // edit
 const edit = (id: number): void => {
@@ -28,8 +28,8 @@ const closeModal = (): void => {
 // remove
 let removeId: number;
 const removeListItem = (id: number): void => {
-	store.list = store.list.filter((i) => i.id !== id);
-	store.addToLocalStorage();
+	store.appData.list = store.appData.list.filter((i) => i.id !== id);
+
 	closeModal();
 };
 </script>

@@ -23,7 +23,7 @@ const toHome = (): void => {
 const store = useAppStore();
 
 // checkId
-const checkId: ListItem | undefined = store.list.find((i) => {
+const checkId: ListItem | undefined = store.appData.list.find((i) => {
 	return i.id === +route.params.id;
 });
 
@@ -33,26 +33,12 @@ const temp = ref<number | null>(checkId?.temp ?? null);
 const editAddItem = () => {
 	if (temp.value) {
 		if (props.isAdd) {
-			++store.countId;
+			++store.appData.countId;
 
-			// Так watch не работает
-			store.list.push({
-				id: store.countId,
+			store.appData.list.push({
+				id: store.appData.countId,
 				temp: temp.value,
 			});
-			store.addToLocalStorage();
-
-			// Так watch отработает при изменение
-			// Но мне watch не очень нравится слишком не предсказуемая штука
-			// store.list = [
-			// 	...store.list,
-			// 	...[
-			// 		{
-			// 			id: store.countId,
-			// 			temp: temp.value,
-			// 		},
-			// 	],
-			// ];
 		} else if (checkId) {
 			checkId.temp = temp.value;
 		}
